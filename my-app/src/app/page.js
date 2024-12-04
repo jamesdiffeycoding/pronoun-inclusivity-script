@@ -30,6 +30,21 @@ export default function Home() {
     // Conditionally replace male pronouns based on preferences
     if (preferencesMaleFemale.male) {
       text = text
+        .replace(/\b(he was)\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***They were***"
+            : "***they were***";
+        })
+        .replace(/\b(he is)\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***They are***"
+            : "***they are***";
+        })
+        .replace(/\b(he's)\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***They're***"
+            : "***they're***";
+        })
         .replace(/\b(he)\b/gi, (match) => {
           return match[0] === match[0].toUpperCase()
             ? "***They***"
@@ -40,10 +55,15 @@ export default function Home() {
             ? "***Their***"
             : "***their***";
         })
-        .replace(/\b(him)\b/gi, (match) => {
+        .replace(/\him(?=[\.,!?;:])\b/gi, (match) => {
           return match[0] === match[0].toUpperCase()
             ? "***Them***"
             : "***them***";
+        })
+        .replace(/\him(?![\.,!?;:])\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***Their***"
+            : "***their***";
         })
         .replace(/\b(himself)\b/gi, (match) => {
           return match[0] === match[0].toUpperCase()
@@ -55,12 +75,32 @@ export default function Home() {
     // Conditionally replace female pronouns based on preferences
     if (preferencesMaleFemale.female) {
       text = text
+        .replace(/\b(she was)\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***They were***"
+            : "***they were***";
+        })
+        .replace(/\b(she is)\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***They are***"
+            : "***they are***";
+        })
+        .replace(/\b(she's)\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***They're***"
+            : "***they're***";
+        })
         .replace(/\b(she)\b/gi, (match) => {
           return match[0] === match[0].toUpperCase()
             ? "***They***"
             : "***they***";
         })
-        .replace(/\b(her)\b/gi, (match) => {
+        .replace(/\bher(?=[\.,!?;:])\b/gi, (match) => {
+          return match[0] === match[0].toUpperCase()
+            ? "***Them***"
+            : "***them***";
+        })
+        .replace(/\bher(?![\.,!?;:])\b/gi, (match) => {
           return match[0] === match[0].toUpperCase()
             ? "***Their***"
             : "***their***";
@@ -161,7 +201,7 @@ export default function Home() {
             See the result below
           </h3>
           <p className="text-xs pb-4 italic">
-            Changes get highlighted in purple
+            Changes get highlighted in purple to help you check the changes.
           </p>
           <div className="flex flex-col items-center text-left border border-white w-full min-h-32 rounded">
             <div
