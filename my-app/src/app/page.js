@@ -3,7 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(
+    "Spider-Man first noticed Lois Lane while swinging through New York City. He was always a fan of the city, and now he loved it more. She was a beautiful woman, and Spiderman was captivated by her confidence and courage. After saving her from a criminal, their paths kept crossing, and Spider-Man admired her strength and resilience. Over time, their bond deepened, Spider-Man found he was falling for her. It wasn't long before he bought a ring for her."
+  );
   const [output, setOutput] = useState("");
   const [preferencesMaleFemale, setPreferences] = useState({
     male: true,
@@ -185,7 +187,7 @@ export default function Home() {
             ref={textareaRef}
             onChange={handleInputChange}
             value={input}
-            placeholder="Enter your text here"
+            placeholder="Enter your text here..."
             className="text-black bg-slate-200 placeholder:text-slate-800 p-2 text-sm mt-4 w-full min-h-32 min-w-96 max-w-[90%] rounded resize-none"
           />
         </section>
