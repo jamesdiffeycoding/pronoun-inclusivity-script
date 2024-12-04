@@ -146,7 +146,7 @@ export default function Home() {
             onChange={handleInputChange}
             value={input}
             placeholder="Enter your text here"
-            className="text-black bg-slate-200 placeholder:text-slate-800 p-2 text-sm mt-4 w-full min-w-96 max-w-[90%] rounded resize-none"
+            className="text-black bg-slate-200 placeholder:text-slate-800 p-2 text-sm mt-4 w-full min-h-32 min-w-96 max-w-[90%] rounded resize-none"
           />
         </section>
 
