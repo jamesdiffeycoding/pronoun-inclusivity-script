@@ -6,9 +6,11 @@ export default function Home() {
   const [input, setInput] = useState(
     "Spider-Man first noticed Lois Lane while swinging through New York City. He was always a fan of the city, and now he loved it more. She was beautiful and Spiderman was captivated by her. Their paths kept crossing, and Spider-Man admired her strength and resilience. Over time, their bond deepened, Spider-Man found he was falling for her. It wasn't long before he bought a ring for her."
   );
+  const [outputWithHighlights, setOutputWithHighlights] = useState("");
   const [output, setOutput] = useState("");
+
   const [preferencesMaleFemale, setPreferences] = useState({
-    male: false,
+    male: true,
     female: true,
   });
 
@@ -118,6 +120,10 @@ export default function Home() {
             : "***themself***";
         });
     }
+    let textToCopy = text.replace(/\*\*\*(.*?)\*\*\*/g, (match, p1) => {
+      return `${p1}`;
+    });
+    setOutput(textToCopy);
 
     // Wrap words surrounded by *** with a span tag for highlighting
     text = text.replace(/\*\*\*(.*?)\*\*\*/g, (match, p1) => {
@@ -130,9 +136,14 @@ export default function Home() {
     return text;
   }
 
+  function copyOutput(e) {
+    navigator.clipboard.writeText(output);
+    alert("Copied to clipboard!");
+  }
+
   useEffect(() => {
-    let modifiedOutput = modifyText(input);
-    setOutput(modifiedOutput);
+    let modifiedOutputWithHighlights = modifyText(input);
+    setOutputWithHighlights(modifiedOutputWithHighlights);
   }, [input, preferencesMaleFemale]); // Update when preferences change
 
   return (
@@ -148,35 +159,37 @@ export default function Home() {
         <h3 className="text-xl font-bold p-4 text-purple-400">
           Select Pronouns to Modify
         </h3>
-        <div>
-          <label>
-            <input
-              className="mr-2"
-              type="checkbox"
-              checked={preferencesMaleFemale.male}
-              onChange={() =>
-                setPreferences((prev) => ({ ...prev, male: !prev.male }))
-              }
-            />
-            he / his / him / himself
-          </label>
-        </div>
-        <div>
-          <label>
-            <input
-              className="mr-2"
-              type="checkbox"
-              checked={preferencesMaleFemale.female}
-              onChange={() =>
-                setPreferences((prev) => ({ ...prev, female: !prev.female }))
-              }
-            />
-            she / her / her / hers / herself
-          </label>
+        <div className="text-left">
+          <div>
+            <label>
+              <input
+                className="mr-2"
+                type="checkbox"
+                checked={preferencesMaleFemale.male}
+                onChange={() =>
+                  setPreferences((prev) => ({ ...prev, male: !prev.male }))
+                }
+              />
+              he / his / him / himself
+            </label>
+          </div>
+          <div>
+            <label>
+              <input
+                className="mr-2"
+                type="checkbox"
+                checked={preferencesMaleFemale.female}
+                onChange={() =>
+                  setPreferences((prev) => ({ ...prev, female: !prev.female }))
+                }
+              />
+              she / her / her / hers / herself
+            </label>
+          </div>
         </div>
       </section>
 
-      {/* INPUT AND OUTPUT CONTAINER (Grid layout with 3 columns on large screens) */}
+      {/* INPUT AND OUTPUtWithHighlights CONTAINER (Grid layout with 3 columns on large screens) */}
       <section className="grid grid-cols-1 lg:grid-cols-[1fr_5px_1fr] lg:gap-8 w-full">
         {/* --- INPUT */}
         <section className="text-center m-4">
@@ -188,7 +201,7 @@ export default function Home() {
             onChange={handleInputChange}
             value={input}
             placeholder="Enter your text here..."
-            className="text-black bg-slate-200 placeholder:text-slate-800 p-2 text-sm mt-4 w-full min-h-32 min-w-96 max-w-[90%] rounded resize-none"
+            className="text-black hover:bg-slate-400 bg-slate-200 placeholder:text-slate-800 p-2 text-sm mt-4 w-full min-h-32 min-w-96 max-w-[90%] rounded resize-none"
           />
         </section>
 
@@ -204,11 +217,13 @@ export default function Home() {
           </h3>
           <p className="text-xs italic mb-8">
             Changes get highlighted in purple to help you check the changes.
+            Click below to copy the text.
           </p>
           <div className="flex flex-col items-center text-left w-full min-h-32">
             <div
-              className="min-w-96 max-w-[90%] text-sm p-4 border border-slate-300 rounded bg-slate-800"
-              dangerouslySetInnerHTML={{ __html: output }} // Render the modified HTML
+              className="hover:cursor-pointer hover:bg-slate-700 min-w-96 max-w-[90%] text-sm p-4 border border-slate-300 rounded bg-slate-800"
+              dangerouslySetInnerHTML={{ __html: outputWithHighlights }} // Render the modified HTML
+              onClick={() => copyOutput()} // Copy the outputWithHighlights to clipboard when clicked
             />
           </div>
         </section>
