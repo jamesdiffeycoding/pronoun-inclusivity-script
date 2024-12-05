@@ -4,11 +4,11 @@ import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [input, setInput] = useState(
-    "Spider-Man first noticed Lois Lane while swinging through New York City. He was always a fan of the city, and now he loved it more. She was a beautiful woman, and Spiderman was captivated by her confidence and courage. After saving her from a criminal, their paths kept crossing, and Spider-Man admired her strength and resilience. Over time, their bond deepened, Spider-Man found he was falling for her. It wasn't long before he bought a ring for her."
+    "Spider-Man first noticed Lois Lane while swinging through New York City. He was always a fan of the city, and now he loved it more. She was beautiful and Spiderman was captivated by her. Their paths kept crossing, and Spider-Man admired her strength and resilience. Over time, their bond deepened, Spider-Man found he was falling for her. It wasn't long before he bought a ring for her."
   );
   const [output, setOutput] = useState("");
   const [preferencesMaleFemale, setPreferences] = useState({
-    male: true,
+    male: false,
     female: true,
   });
 
@@ -177,9 +177,9 @@ export default function Home() {
       </section>
 
       {/* INPUT AND OUTPUT CONTAINER (Grid layout with 3 columns on large screens) */}
-      <section className="grid grid-cols-1 lg:grid-cols-[1fr_5px_1fr] gap-8 w-full">
+      <section className="grid grid-cols-1 lg:grid-cols-[1fr_5px_1fr] lg:gap-8 w-full">
         {/* --- INPUT */}
-        <section className="text-center m-4 w-full">
+        <section className="text-center m-4">
           <h3 className="text-xl font-bold p-4 text-purple-400">
             Enter your text below
           </h3>
@@ -202,12 +202,12 @@ export default function Home() {
           <h3 className="text-xl font-bold pt-4 text-purple-400">
             See the result below
           </h3>
-          <p className="text-xs pb-4 italic">
+          <p className="text-xs italic mb-8">
             Changes get highlighted in purple to help you check the changes.
           </p>
-          <div className="flex flex-col items-center text-left border border-white w-full min-h-32 rounded">
+          <div className="flex flex-col items-center text-left w-full min-h-32">
             <div
-              className="min-w-96 max-w-[90%] text-sm p-2"
+              className="min-w-96 max-w-[90%] text-sm p-4 border border-slate-300 rounded bg-slate-800"
               dangerouslySetInnerHTML={{ __html: output }} // Render the modified HTML
             />
           </div>
