@@ -183,7 +183,7 @@ export default function Home() {
                   setPreferences((prev) => ({ ...prev, female: !prev.female }))
                 }
               />
-              she / her / her / hers / herself
+              she / her / hers / herself
             </label>
           </div>
         </div>
